@@ -47,13 +47,14 @@ class Chunchun(object):
 
     def tweet(self):
         url = 'https://api.twitter.com/1.1/statuses/update.json'
-        params = {'status': '(・8・)ﾁｭﾝﾁｭﾝ 南ことりが日の出をお知らせします♪ - %s %s' % (str(self.next_sunrise), self.conf.locname.encode('utf-8'))}
+        time = self.next_sunrise.strftime('%Y/%m/%d %H:%M')
+        params = {'status': '(・8・)ﾁｭﾝﾁｭﾝ 南ことりが日の出をお知らせします♪ - %s %s' % (time, self.conf.locname.encode('utf-8'))}
         CK = self.conf.CK
         CS = self.conf.CS
         AT = self.conf.AT
         AS = self.conf.AS
         tw = OAuth1Session(CK, CS, AT, AS)
-        req = tw.post(url, params = params)
+        req = tw.post(url, params=params)
         if req.status_code == 200:
             print('OK')
         else:
@@ -64,7 +65,7 @@ class Chunchun(object):
         dt = datetime.date.today() + datetime.timedelta(days=1)
         request_url = URL % (dt.year, dt.month, dt.day, self.conf.lat, self.conf.lon)
         self.next_sunrise = self.get_sunrise(request_url)
-        print('next_sunrise:' + str(self.next_sunrise))
+        print('next_sunrise:' + self.next_sunrise.strftime('%Y/%m/%d %H:%M'))
 
     def do_post(self):
         self.tweet()
