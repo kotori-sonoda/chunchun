@@ -8,6 +8,9 @@ import json
 from requests_oauthlib import OAuth1Session
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.events import EVENT_JOB_EXECUTED
+import logging
+
+logging.basicConfig()
 
 class Configuration(object):
     FILENAME = 'conf.json'
