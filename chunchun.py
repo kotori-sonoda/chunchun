@@ -87,7 +87,7 @@ class Chunchun(object):
                 while self.running:
                     time.sleep(10)
                 job.remove()
-                job = sched.add_job(self.do_post, 'date', run_date=self.next_sunrise)
+                job = sched.add_job(self.do_post, 'date', run_date=self.next_sunrise, misfire_grace_time=120)
         except (KeyboardInterrupt, SystemExit):
             sched.shutdown()
 
